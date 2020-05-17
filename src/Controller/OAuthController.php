@@ -78,7 +78,7 @@ class OAuthController extends AbstractController
             // Use this to interact with an API on the users behalf
             printf('Your access token is: %s', $_SESSION['token']->getToken());
 
-        return $this->render('o_auth/login.html.twig', [
+        return $this->render('oauth/login.html.twig', [
             'controller_name' => 'OAuthController',
             'accessToken' => $_SESSION['token'],
             'user' => $user,
