@@ -8,10 +8,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class OAuthController extends AbstractController
 {
     /**
-     * @Route("/", name="o_auth")
+     * @Route("/", name="oauth")
      */
     public function login()
-    {
+    {   
 
         $provider = new \Evelabs\OAuth2\Client\Provider\EveOnline([
             'clientId'          => $_ENV['CLIENT_ID'],
@@ -76,12 +76,11 @@ class OAuthController extends AbstractController
         }
         
             // Use this to interact with an API on the users behalf
-            printf('Your access token is: %s', $_SESSION['token']->getToken());
+            // printf('Your access token is: %s', $_SESSION['token']->getToken());
+            
 
         return $this->render('oauth/login.html.twig', [
             'controller_name' => 'OAuthController',
-            'accessToken' => $_SESSION['token'],
-            'user' => $user,
         ]);
     }
 }

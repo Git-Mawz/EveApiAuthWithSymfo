@@ -1,8 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello OAuthController!{% endblock %}
+{% block title %}Connect with Eve Online{% endblock %}
 
 {% block body %}
-{{ dump(user) }}
-{{ dump(accessToken) }}
+{{ dump(app.session.get('user').CharacterName) }}
 {% endblock %}
