@@ -12,7 +12,7 @@ class CharacterController extends AbstractController
      */
     public function details()
     {   
-      
+    
 
         return $this->render('character/details.html.twig', [
             

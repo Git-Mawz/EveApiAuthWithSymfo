@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class OAuthController extends AbstractController
 {
@@ -12,6 +13,9 @@ class OAuthController extends AbstractController
      */
     public function login()
     {   
+        // appel à la session de symfony
+        $session = new Session();
+        $session->start();
 
         $provider = new \Evelabs\OAuth2\Client\Provider\EveOnline([
             'clientId'          => $_ENV['CLIENT_ID'],
@@ -64,7 +68,7 @@ class OAuthController extends AbstractController
         
                 // We got an access token, let's now get the user's details
                 $user = $provider->getResourceOwner($_SESSION['token']);
-        
+
                 // Use these details to create a new profile
                 printf('Hello %s! ', $user->getCharacterName());
         
@@ -77,6 +81,11 @@ class OAuthController extends AbstractController
         
             // Use this to interact with an API on the users behalf
             // printf('Your access token is: %s', $_SESSION['token']->getToken());
+
+            // mise en session du token fourni par oauth
+            $session->set('token', $_SESSION['token']);
+            // mise en session de l'objet user fourni par le provider
+            $session->set('user', $user);
             
 
         return $this->render('oauth/login.html.twig', [

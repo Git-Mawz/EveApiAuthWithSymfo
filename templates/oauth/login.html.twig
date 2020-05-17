@@ -3,5 +3,6 @@
 {% block title %}Connect with Eve Online{% endblock %}
 
 {% block body %}
-{{ dump(app.session.get('user').CharacterName) }}
+{{ dump(app.session.get('user')) }}
+{{ dump(app.session.get('token')) }}
 {% endblock %}
