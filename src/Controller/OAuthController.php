@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class OAuthController extends AbstractController
 {
     /**
-     * @Route("/", name="oauth")
+     * @Route("/login", name="oauth")
      */
     public function login()
     {   
