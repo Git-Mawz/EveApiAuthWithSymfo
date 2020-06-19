@@ -38,11 +38,11 @@ class MailController extends AbstractController
         // On récupère le contenu de la réponse
         $jsonContent = $response->getContent();
         $content = json_decode($jsonContent);
-        dd($content);
 
         return $this->render('mail/index.html.twig', [
             'controller_name' => 'MailController',
             'user' => $user,
+            'mails' => $content
         ]);
     }
 }
