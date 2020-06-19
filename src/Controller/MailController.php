@@ -25,7 +25,7 @@ class MailController extends AbstractController
         // dd($tokens);
         $accessToken = $tokens->getToken('accessToken');
 
-        // On créé la requête
+        // On créé le client pour la requête
         $client = HttpClient::create([
             'headers' => [
                 'Authorization' => 'Bearer ' . $accessToken,
@@ -35,7 +35,9 @@ class MailController extends AbstractController
 
         // On fait la requête
         $response = $client->request('GET', $fetchMailEndPoint);
-        $content = $response->getContent();
+        // On récupère le contenu de la réponse
+        $jsonContent = $response->getContent();
+        $content = json_decode($jsonContent);
         dd($content);
 
         return $this->render('mail/index.html.twig', [
