@@ -20,7 +20,7 @@ class OAuthController extends AbstractController
         $provider = new \Evelabs\OAuth2\Client\Provider\EveOnline([
             'clientId'          => $_ENV['CLIENT_ID'],
             'clientSecret'      => $_ENV['SECRET_KEY'],
-            'redirectUri'       => 'http://localhost:8000',
+            'redirectUri'       => 'http://localhost:8000/login',
         ]);
         
         if (!isset($_GET['code'])) {

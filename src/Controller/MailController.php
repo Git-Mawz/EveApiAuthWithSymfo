@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Services\EsiEndpoints;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,37 +9,38 @@ use Symfony\Component\Routing\Annotation\Route;
 class MailController extends AbstractController
 {
     /**
-     * @Route("/display_mails", name="display_mails")
+     * @Route("/character/mails", name="character_mails")
      */
-    public function displayAll(EsiEndpoints $baseEnPoint)
+    public function displayAll()
     {   
         // On récupère les données de l'utilisateurs connecté
         $user = $this->get('session')->get('user');
         $characterId = $user->getCharacterID();
         // On créé le endpoint pour les mails
-        $fetchMailEndPoint = $baseEnPoint->baseEsiUrl . 'characters/' . $characterId . '/mail/';
+        $esiBaseUrl = 'https://esi.evetech.net/latest/';
+        $fetchMailEndPoint = $esiBaseUrl . 'characters/' . $characterId . '/mail/';
 
-        // On fait une requete à l'API pour récupérer les mails de l'utilisateur connecté
-
+        //On récupère le token dans la session
         $tokens = $this->get('session')->get('token');
+        // dd($tokens);
         $accessToken = $tokens->getToken('accessToken');
 
+        // On créé la requête
         $client = HttpClient::create([
             'headers' => [
-                'auth_bearer' => $accessToken,
+                'Authorization' => 'Bearer ' . $accessToken,
                 'User-Agent' => 'Krawks',
-                'Content-Type' => ' application/json'
             ]
         ]);
 
-       
+        // On fait la requête
         $response = $client->request('GET', $fetchMailEndPoint);
-     
-
+        $content = $response->getContent();
+        dd($content);
 
         return $this->render('mail/index.html.twig', [
             'controller_name' => 'MailController',
-            'user' => $user
+            'user' => $user,
         ]);
     }
 }
