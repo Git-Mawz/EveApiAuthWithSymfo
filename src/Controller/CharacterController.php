@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CharacterController extends AbstractController
 {
     /**
-     * @Route("/character/details", name="character_details")
+     * @Route("/character/home", name="character_home")
      */
     public function details()
     {   
@@ -22,8 +22,9 @@ class CharacterController extends AbstractController
 
         $characterPortraits = json_decode(file_get_contents($characterPortraits));
 
-        return $this->render('character/details.html.twig', [
-            'portraits' => $characterPortraits
+        return $this->render('character/home.html.twig', [
+            'portraits' => $characterPortraits,
+            'user' => $user
         ]);
     }
 }

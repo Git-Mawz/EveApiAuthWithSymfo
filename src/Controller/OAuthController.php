@@ -69,8 +69,8 @@ class OAuthController extends AbstractController
                 // We got an access token, let's now get the user's details
                 $user = $provider->getResourceOwner($_SESSION['token']);
 
-                // Use these details to create a new profile
-                printf('Hello %s! ', $user->getCharacterName());
+                // ! Use these details to create a new profile
+                // printf('Hello %s! ', $user->getCharacterName());
         
             } catch (\Exception $e) {
         
@@ -88,8 +88,12 @@ class OAuthController extends AbstractController
             $session->set('user', $user);
             
 
-        return $this->render('oauth/login.html.twig', [
-            'controller_name' => 'OAuthController',
-        ]);
+        // return $this->render('character/home.html.twig', [
+        //     'controller_name' => 'OAuthController',
+        //     'user' => $user
+        // ]);
+
+
+        return $this->redirectToRoute('character_home');
     }
 }
