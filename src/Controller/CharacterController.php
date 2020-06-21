@@ -12,7 +12,7 @@ class CharacterController extends AbstractController
      * @Route("/character/home", name="character_home")
      */
     public function details()
-    {   
+    {
         $user = $this->get('session')->get('user');
         $characterID = $user->getCharacterID();
 
