@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,6 +13,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class CreateTagsCommand extends Command
 {
     protected static $defaultName = 'app:create-tags';
+
+    private $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+        parent::__construct();
+    }
 
     protected function configure()
     {
@@ -27,15 +36,51 @@ class CreateTagsCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $arg1 = $input->getArgument('arg1');
 
-        if ($arg1) {
-            $io->note(sprintf('You passed an argument: %s', $arg1));
+
+        $tags = [
+            'PvE',
+            'PvP',
+            'Triglavian',
+            'Industrie',
+            'Minage',
+            'Exploration',
+            'Interaction Planétaire',
+            'Corporation',
+            'Alliance',
+            'Incursion',
+            'Mission',
+            'Transport',
+            'Ratting',
+            'Compétences',
+            'Commerce',
+            'Empire',
+            'Low-Sec',
+            'Null-Sec',
+            'High-Sec',
+            'Wormhole',
+            'Fitting',
+            'Lore',
+            'Ship'
+        ];
+
+
+        foreach ($tags as $tag) {
+            $newTag = new \App\Entity\Tag();
+            $newTag->setName($tag);
+            $this->em->persist($newTag);
         }
 
-        if ($input->getOption('option1')) {
-            // ...
-        }
+        $this->em->flush();
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        // if ($arg1) {
+        //     $io->note(sprintf('You passed an argument: %s', $arg1));
+        // }
+
+        // if ($input->getOption('option1')) {
+        //     // ...
+        // }
+
+        $io->success('Les Tags on bien été ajouté !');
 
         return 0;
     }
