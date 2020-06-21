@@ -14,7 +14,6 @@ class CharacterController extends AbstractController
     public function details()
     {   
         $user = $this->get('session')->get('user');
-        // dd($_SESSION);
         $characterID = $user->getCharacterID();
 
         $esiBaseUrl = 'https://esi.evetech.net/latest/';

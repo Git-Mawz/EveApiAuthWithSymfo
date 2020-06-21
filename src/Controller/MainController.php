@@ -11,7 +11,8 @@ class MainController extends AbstractController
      * @Route("/", name="main")
      */
     public function index()
-    {
+    {   
         return $this->render('main/index.html.twig');
     }
+
 }

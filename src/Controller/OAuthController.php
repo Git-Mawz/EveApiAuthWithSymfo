@@ -2,7 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Character;
+use App\Entity\User;
+use App\Repository\CharacterRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -11,7 +16,7 @@ class OAuthController extends AbstractController
     /**
      * @Route("/login", name="oauth")
      */
-    public function login()
+    public function login(UserRepository $userRepository, CharacterRepository $characterRepository)
     {   
         // Création de la session de symfony
         $session = new Session();
@@ -72,6 +77,52 @@ class OAuthController extends AbstractController
                 $user = $provider->getResourceOwner($_SESSION['token']);
 
                 // ! Use these details to create a new profile
+
+                // On cherche si le CharacterOwnerHash existe en BDD
+                $loggedCharacterOwnerHash = $user->getCharacterOwnerHash();
+                $storedCharacterOwnerHash = $userRepository->findOneBy(['characterOwnerHash' => $loggedCharacterOwnerHash]);
+                
+                // Si il n'existe pas, on créé un nouvel utilisateur grâche aux CharacterOwnerHash fourni par
+                // l'authentification OAuth à Eve Online
+                if ($storedCharacterOwnerHash == null) {
+
+                    $em = $this->getDoctrine()->getManager();
+                    // On créé un nouvel utilisateur
+                    $newUser = new User();
+                    $newUser->setCharacterOwnerHash($loggedCharacterOwnerHash);
+                    // On créé le personnage en BDD
+                    $newCharacter = new Character();
+                    $newCharacter->setName($user->getCharacterName());
+                    $newCharacter->setEveCharacterId($user->getCharacterId());
+                    $em->persist($newCharacter);
+                    // On ajoute le personnage à l'utilisateur
+                    $newUser->addCharacter($newCharacter);
+                    $em->persist($newUser);
+                    $em->flush();
+
+                } else {
+                    
+                    // si l'utilisateur existe (et a par conséquent déjà au moins un personnage),
+                    // si le personnage existe déjà on ne fait rien
+                    // si le personnage n'existe pas on l'ajoute à la liste des personnage de l'utilisateur
+                    $loggedUser = $storedCharacterOwnerHash;
+                    $loggedUserCharacters = $loggedUser->getCharacters();
+                    foreach ($loggedUserCharacters as $userCharacter) {
+                        $loggedUserCharacterIds[] = $userCharacter->getEveCharacterId();
+                    }
+                    // dd($loggedUserCharacterIds);
+                    if (!in_array($user->getCharacterId(), $loggedUserCharacterIds)) {
+                        $newCharacter = new Character();
+                        $newCharacter->setName($user->getCharacterName());
+                        $newCharacter->setEveCharacterId($user->getCharacterId());
+                        $em = $this->getDoctrine()->getManager();
+                        $em->persist($newCharacter);
+                        $loggedUser->addCharacter($newCharacter);
+                        $em->flush();
+                    }
+
+                }
+
                 // printf('Hello %s! ', $user->getCharacterName());
         
             } catch (\Exception $e) {
@@ -98,4 +149,21 @@ class OAuthController extends AbstractController
 
         return $this->redirectToRoute('character_home');
     }
+
+
+    /**
+    * @Route("/logoff", name="logoff")
+    */
+
+    public function logoff()
+    {
+        $client = HttpClient::create();
+        $client->request('GET', 'https://login.eveonline.com/Account/LogOff');
+        $session = $this->get('session');
+        $session->clear();
+
+        return $this->redirectToRoute('main');
+    }
+
+
 }
