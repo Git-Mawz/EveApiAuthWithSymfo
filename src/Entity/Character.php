@@ -24,15 +24,14 @@ class Character
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="characters")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $eveCharacterId;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $characterOwnerHash;
 
     public function getId(): ?int
     {
@@ -51,18 +50,6 @@ class Character
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     public function getEveCharacterId(): ?int
     {
         return $this->eveCharacterId;
@@ -71,6 +58,18 @@ class Character
     public function setEveCharacterId(int $eveCharacterId): self
     {
         $this->eveCharacterId = $eveCharacterId;
+
+        return $this;
+    }
+
+    public function getCharacterOwnerHash(): ?string
+    {
+        return $this->characterOwnerHash;
+    }
+
+    public function setCharacterOwnerHash(string $characterOwnerHash): self
+    {
+        $this->characterOwnerHash = $characterOwnerHash;
 
         return $this;
     }

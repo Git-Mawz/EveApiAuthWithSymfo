@@ -16,7 +16,7 @@ class OAuthController extends AbstractController
     /**
      * @Route("/login", name="oauth")
      */
-    public function login(UserRepository $userRepository, CharacterRepository $characterRepository)
+    public function login(CharacterRepository $characterRepository)
     {   
         // Création de la session de symfony
         $session = new Session();
@@ -79,49 +79,49 @@ class OAuthController extends AbstractController
                 // ! Use these details to create a new profile
 
                 // On cherche si le CharacterOwnerHash existe en BDD
-                $loggedCharacterOwnerHash = $user->getCharacterOwnerHash();
-                $storedCharacterOwnerHash = $userRepository->findOneBy(['characterOwnerHash' => $loggedCharacterOwnerHash]);
+                // $loggedCharacterOwnerHash = $user->getCharacterOwnerHash();
+                // $storedCharacterOwnerHash = $userRepository->findOneBy(['characterOwnerHash' => $loggedCharacterOwnerHash]);
                 
-                // Si il n'existe pas, on créé un nouvel utilisateur grâche aux CharacterOwnerHash fourni par
-                // l'authentification OAuth à Eve Online
-                if ($storedCharacterOwnerHash == null) {
+                // // Si il n'existe pas, on créé un nouvel utilisateur grâche aux CharacterOwnerHash fourni par
+                // // l'authentification OAuth à Eve Online
+                // if ($storedCharacterOwnerHash == null) {
 
-                    $em = $this->getDoctrine()->getManager();
-                    // On créé un nouvel utilisateur
-                    $newUser = new User();
-                    $newUser->setCharacterOwnerHash($loggedCharacterOwnerHash);
-                    // On créé le personnage en BDD
-                    $newCharacter = new Character();
-                    $newCharacter->setName($user->getCharacterName());
-                    $newCharacter->setEveCharacterId($user->getCharacterId());
-                    $em->persist($newCharacter);
-                    // On ajoute le personnage à l'utilisateur
-                    $newUser->addCharacter($newCharacter);
-                    $em->persist($newUser);
-                    $em->flush();
+                //     $em = $this->getDoctrine()->getManager();
+                //     // On créé un nouvel utilisateur
+                //     $newUser = new User();
+                //     $newUser->setCharacterOwnerHash($loggedCharacterOwnerHash);
+                //     // On créé le personnage en BDD
+                //     $newCharacter = new Character();
+                //     $newCharacter->setName($user->getCharacterName());
+                //     $newCharacter->setEveCharacterId($user->getCharacterId());
+                //     $em->persist($newCharacter);
+                //     // On ajoute le personnage à l'utilisateur
+                //     $newUser->addCharacter($newCharacter);
+                //     $em->persist($newUser);
+                //     $em->flush();
 
-                } else {
+                // } else {
                     
-                    // si l'utilisateur existe (et a par conséquent déjà au moins un personnage),
-                    // si le personnage existe déjà on ne fait rien
-                    // si le personnage n'existe pas on l'ajoute à la liste des personnage de l'utilisateur
-                    $loggedUser = $storedCharacterOwnerHash;
-                    $loggedUserCharacters = $loggedUser->getCharacters();
-                    foreach ($loggedUserCharacters as $userCharacter) {
-                        $loggedUserCharacterIds[] = $userCharacter->getEveCharacterId();
-                    }
-                    // dd($loggedUserCharacterIds);
-                    if (!in_array($user->getCharacterId(), $loggedUserCharacterIds)) {
-                        $newCharacter = new Character();
-                        $newCharacter->setName($user->getCharacterName());
-                        $newCharacter->setEveCharacterId($user->getCharacterId());
-                        $em = $this->getDoctrine()->getManager();
-                        $em->persist($newCharacter);
-                        $loggedUser->addCharacter($newCharacter);
-                        $em->flush();
-                    }
+                //     // si l'utilisateur existe (et a par conséquent déjà au moins un personnage),
+                //     // si le personnage existe déjà on ne fait rien
+                //     // si le personnage n'existe pas on l'ajoute à la liste des personnage de l'utilisateur
+                //     $loggedUser = $storedCharacterOwnerHash;
+                //     $loggedUserCharacters = $loggedUser->getCharacters();
+                //     foreach ($loggedUserCharacters as $userCharacter) {
+                //         $loggedUserCharacterIds[] = $userCharacter->getEveCharacterId();
+                //     }
+                //     // dd($loggedUserCharacterIds);
+                //     if (!in_array($user->getCharacterId(), $loggedUserCharacterIds)) {
+                //         $newCharacter = new Character();
+                //         $newCharacter->setName($user->getCharacterName());
+                //         $newCharacter->setEveCharacterId($user->getCharacterId());
+                //         $em = $this->getDoctrine()->getManager();
+                //         $em->persist($newCharacter);
+                //         $loggedUser->addCharacter($newCharacter);
+                //         $em->flush();
+                //     }
 
-                }
+                // }
 
                 // printf('Hello %s! ', $user->getCharacterName());
         
