@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Eve Quantum - Character Details{% endblock %}
+{% block title %}- Personnage{% endblock %}
 
 {% block body %}
 
-   <h1 >Bienvenue {{user.characterName}} </h1>
+   <h1>Bienvenue {{user.characterName}} </h1>
 
    <img src="{{ portraits.px256x256 }}"> 
    {{ dump(user) }}

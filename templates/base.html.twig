@@ -2,8 +2,9 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Eve Quantum{% block title %}{% endblock %}</title>
+        <title>Eve Quantum {% block title %}{% endblock %}</title>
         <link rel="stylesheet" href="{{ asset('asset/css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{ asset('asset/css/style.css') }}">
         {% block stylesheets %}{% endblock %}
     </head>
 
@@ -15,7 +16,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarColor01">
+            <div class="collapse navbar-collapse d-flex" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Mon Personnage<span class="sr-only"></span></a>
@@ -24,11 +25,11 @@
                     <a class="nav-link" href="#">Questions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Eve Mail</a>
-                </li>
-                {# <li class="nav-item">
                     <a class="nav-link" href="#">A Propos</a>
-                </li> #}
+                </li>
+                {% if app.session.get('user') is not null %}
+                    <a href="{{path('logoff')}}" type="button" class="btn btn-danger logout">Déconnexion</a>
+                {% endif %}
                 </ul>
                 {# <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search">
