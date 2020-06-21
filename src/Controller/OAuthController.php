@@ -13,10 +13,11 @@ class OAuthController extends AbstractController
      */
     public function login()
     {   
-        // appel à la session de symfony
+        // Création de la session de symfony
         $session = new Session();
         $session->start();
 
+        // Création du provider OAuth
         $provider = new \Evelabs\OAuth2\Client\Provider\EveOnline([
             'clientId'          => $_ENV['CLIENT_ID'],
             'clientSecret'      => $_ENV['SECRET_KEY'],
@@ -28,6 +29,7 @@ class OAuthController extends AbstractController
             // here we can set requested scopes but it is totally optional
             // make sure you have them enabled on your app page at
             // https://developers.eveonline.com/applications/
+            // Ici on gère les scopes de l'API pour les futurs requêtes authentifiées
             $options = [
                 'scope' => ['esi-mail.read_mail.v1', 'esi-mail.send_mail.v1'] // array or string
             ];
