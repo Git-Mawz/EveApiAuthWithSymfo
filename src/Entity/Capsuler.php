@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CapsulerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +38,23 @@ class Capsuler
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Question::class, mappedBy="capsuler")
+     */
+    private $questions;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="capsuler")
+     */
+    private $answers;
+
+
+    public function __construct()
+    {
+        $this->questions = new ArrayCollection();
+        $this->answers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,6 +105,68 @@ class Capsuler
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Question[]
+     */
+    public function getQuestions(): Collection
+    {
+        return $this->questions;
+    }
+
+    public function addQuestion(Question $question): self
+    {
+        if (!$this->questions->contains($question)) {
+            $this->questions[] = $question;
+            $question->setCapsuler($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestion(Question $question): self
+    {
+        if ($this->questions->contains($question)) {
+            $this->questions->removeElement($question);
+            // set the owning side to null (unless already changed)
+            if ($question->getCapsuler() === $this) {
+                $question->setCapsuler(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Answer[]
+     */
+    public function getAnswers(): Collection
+    {
+        return $this->answers;
+    }
+
+    public function addAnswer(Answer $answer): self
+    {
+        if (!$this->answers->contains($answer)) {
+            $this->answers[] = $answer;
+            $answer->setCapsuler($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnswer(Answer $answer): self
+    {
+        if ($this->answers->contains($answer)) {
+            $this->answers->removeElement($answer);
+            // set the owning side to null (unless already changed)
+            if ($answer->getCapsuler() === $this) {
+                $answer->setCapsuler(null);
+            }
+        }
 
         return $this;
     }

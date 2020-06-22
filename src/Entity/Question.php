@@ -44,6 +44,13 @@ class Question
      */
     private $tags;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Capsuler::class, inversedBy="questions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $capsuler;
+
+
     public function __construct()
     {
         $this->answers = new ArrayCollection();
@@ -144,6 +151,18 @@ class Question
         if ($this->tags->contains($tag)) {
             $this->tags->removeElement($tag);
         }
+
+        return $this;
+    }
+
+    public function getCapsuler(): ?Capsuler
+    {
+        return $this->capsuler;
+    }
+
+    public function setCapsuler(?Capsuler $capsuler): self
+    {
+        $this->capsuler = $capsuler;
 
         return $this;
     }

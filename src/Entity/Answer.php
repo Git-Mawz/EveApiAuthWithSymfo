@@ -33,6 +33,12 @@ class Answer
      */
     private $question;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Capsuler::class, inversedBy="answers")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $capsuler;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +76,18 @@ class Answer
     public function setQuestion(?Question $question): self
     {
         $this->question = $question;
+
+        return $this;
+    }
+
+    public function getCapsuler(): ?Capsuler
+    {
+        return $this->capsuler;
+    }
+
+    public function setCapsuler(?Capsuler $capsuler): self
+    {
+        $this->capsuler = $capsuler;
 
         return $this;
     }
