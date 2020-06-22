@@ -3,9 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Character;
-use App\Entity\User;
 use App\Repository\CharacterRepository;
-use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Routing\Annotation\Route;
