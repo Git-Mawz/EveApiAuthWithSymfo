@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-class CharacterController extends AbstractController
+class CapsulerController extends AbstractController
 {
     /**
      * @Route("/character/home", name="character_home")
@@ -21,7 +21,7 @@ class CharacterController extends AbstractController
 
         $characterPortraits = json_decode(file_get_contents($characterPortraits));
 
-        return $this->render('character/home.html.twig', [
+        return $this->render('capsuler/home.html.twig', [
             'portraits' => $characterPortraits,
             'user' => $user
         ]);
