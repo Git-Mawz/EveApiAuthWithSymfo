@@ -80,7 +80,7 @@ class OAuthController extends AbstractController
                 $loggedCharacterOwnerHash = $user->getCharacterOwnerHash();
                 $storedCapsuler = $capsulerRepository->findOneBy(['characterOwnerHash' => $loggedCharacterOwnerHash]);
                 
-                // Si il n'existe pas, on créé un nouveau personnage grâce aux characterOwnerHash fourni par
+                // Si il n'existe pas et ne renvoi pas d'objet "capsuler", on créé un nouveau personnage grâce aux data fourni par
                 // l'authentification OAuth à Eve Online
                 if ($storedCapsuler == null) {
                     $em = $this->getDoctrine()->getManager();
@@ -131,12 +131,13 @@ class OAuthController extends AbstractController
     public function logoff()
     {
         $client = HttpClient::create();
+        // On fait une requete vers la route de logoff d'eve online
         $client->request('GET', 'https://login.eveonline.com/Account/LogOff');
+        // On vide la session
         $session = $this->get('session');
         $session->clear();
-
-        return $this->redirectToRoute('main');
+        // On retourne à la page 
+        return $this->redirectToRoute('main_home');
     }
-
 
 }

@@ -9,9 +9,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class MailController extends AbstractController
 {
     /**
-     * @Route("/character/mails", name="character_mails")
+     * @Route("/mail", name="mail_list")
      */
-    public function displayAll()
+    public function list()
     {   
         // On récupère les données de l'utilisateurs connecté
         $user = $this->get('session')->get('user');
@@ -39,7 +39,7 @@ class MailController extends AbstractController
         $jsonContent = $response->getContent();
         $content = json_decode($jsonContent);
 
-        return $this->render('mail/index.html.twig', [
+        return $this->render('mail/list.html.twig', [
             'controller_name' => 'MailController',
             'user' => $user,
             'mails' => $content

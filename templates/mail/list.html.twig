@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} - Eve Mails{% endblock %}
+
+{% block body %}
+
+    <h1>Bonjour, {{user.CharacterName}}</h1>
+    <p class="lead">La liste de vos mails</p>
+    <hr class="my-4">
+    {% for mail in mails %}
+
+        {{ dump(mail.subject) }}
+        {{ dump(mail.from) }}
+        {{ dump(mail.timestamp) }}
+
+    {% endfor %}
+    
+    
+
+{% endblock %}
