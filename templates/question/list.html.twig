@@ -4,8 +4,28 @@
 
 {% block body %}
 
+<h1 class="display-5">Liste des Questions</h1>
 
-
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Auteur</th>
+            <th scope="col">Titre</th>
+            <th scope="col">Aperçu</th>
+            <th scope="col">Quand</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for question in questions %}
+    <tr class="table">
+      <th scope="row">{{ question.capsuler.name }}</th>
+      <td>{{ question.title }}</td>
+      <td>{{ question.content|slice(0,70) }} ...</td>
+      <td>{{question.createdAt|date("m:i \\l\\e d/m/Y") }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table> 
 
 
 {% endblock %}
