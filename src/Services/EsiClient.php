@@ -70,7 +70,7 @@ class EsiClient extends AbstractController
                 'User-Agent' => 'Krawks',
             ]
         ]);
-            
+        
         $response = $client->request('GET', $this->baseEsiUrl . '/characters/' . $characterId . '/portrait');
         $jsonContent = $response->getContent();
         $portrait = json_decode($jsonContent);
