@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Character;
-use App\Repository\CharacterRepository;
+use App\Entity\Capsuler;
+use App\Repository\CapsulerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,7 +14,7 @@ class OAuthController extends AbstractController
     /**
      * @Route("/login", name="oauth")
      */
-    public function login(CharacterRepository $characterRepository)
+    public function login(CapsulerRepository $capsulerRepository)
     {   
         // Création de la session de symfony
         $session = new Session();
@@ -78,20 +78,21 @@ class OAuthController extends AbstractController
 
                 // On cherche si le characterOwnerHash existe en BDD dans la table character
                 $loggedCharacterOwnerHash = $user->getCharacterOwnerHash();
-                $storedCharacter = $characterRepository->findOneBy(['characterOwnerHash' => $loggedCharacterOwnerHash]);
+                $storedCapsuler = $capsulerRepository->findOneBy(['characterOwnerHash' => $loggedCharacterOwnerHash]);
                 
                 // Si il n'existe pas, on créé un nouveau personnage grâce aux characterOwnerHash fourni par
                 // l'authentification OAuth à Eve Online
-                if ($storedCharacter == null) {
+                if ($storedCapsuler == null) {
                     $em = $this->getDoctrine()->getManager();
                 
                     // On créé le personnage en BDD
-                    $newCharacter = new Character();
-                    $newCharacter->setName($user->getCharacterName());
-                    $newCharacter->setEveCharacterId($user->getCharacterId());
-                    $newCharacter->setCharacterOwnerHash($user->getCharacterOwnerHash());
+                    $capsuler = new Capsuler();
+                    $capsuler->setName($user->getCharacterName());
+                    $capsuler->setEveCharacterId($user->getCharacterId());
+                    $capsuler->setCharacterOwnerHash($user->getCharacterOwnerHash());
+                    $capsuler->setCreatedAt(new \DateTime());
 
-                    $em->persist($newCharacter);
+                    $em->persist($capsuler);
                     $em->flush();
                 }
 

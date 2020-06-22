@@ -2,14 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\CharacterRepository;
+use App\Repository\CapsulerRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CharacterRepository::class)
- * @ORM\Table(name="`character`")
+ * @ORM\Entity(repositoryClass=CapsulerRepository::class)
  */
-class Character
+class Capsuler
 {
     /**
      * @ORM\Id()
@@ -32,6 +31,11 @@ class Character
      * @ORM\Column(type="string", length=255)
      */
     private $characterOwnerHash;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
 
     public function getId(): ?int
     {
@@ -70,6 +74,18 @@ class Character
     public function setCharacterOwnerHash(string $characterOwnerHash): self
     {
         $this->characterOwnerHash = $characterOwnerHash;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Character;
+use App\Entity\Capsuler;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Character|null find($id, $lockMode = null, $lockVersion = null)
- * @method Character|null findOneBy(array $criteria, array $orderBy = null)
- * @method Character[]    findAll()
- * @method Character[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Capsuler|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Capsuler|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Capsuler[]    findAll()
+ * @method Capsuler[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CharacterRepository extends ServiceEntityRepository
+class CapsulerRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Character::class);
+        parent::__construct($registry, Capsuler::class);
     }
 
     // /**
-    //  * @return Character[] Returns an array of Character objects
+    //  * @return Capsuler[] Returns an array of Capsuler objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class CharacterRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Character
+    public function findOneBySomeField($value): ?Capsuler
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')
