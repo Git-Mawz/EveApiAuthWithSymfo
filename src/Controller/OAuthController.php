@@ -119,10 +119,8 @@ class OAuthController extends AbstractController
         //     'user' => $user
         // ]);
 
-
         return $this->redirectToRoute('character_home');
     }
-
 
     /**
     * @Route("/logoff", name="logoff")

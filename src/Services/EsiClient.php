@@ -8,39 +8,75 @@ use Symfony\Component\HttpClient\HttpClient;
 class EsiClient extends AbstractController
 {
 
-    private $httpClient;
-    private $accessToken;
-    private $baseEsiUrl = 'https://esi.evetech.net/latest';
+    public $baseEsiUrl = 'https://esi.evetech.net/latest';
 
-    public function __construct(){
+    public function getCharacter($characterId)
+    {   
 
-        $this->accessToken = $this->get('session')->get('token')->getToken('accessToken');
+        //On récupère le token dans la session
+        $tokens = $this->get('session')->get('token');
+        // dd($tokens);
+        $accessToken = $tokens->getToken('accessToken');
 
-        $this->httpClient = HttpClient::create([
+        // On créé le client pour la requête
+        $client = HttpClient::create([
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->accessToken,
+                'Authorization' => 'Bearer ' . $accessToken,
                 'User-Agent' => 'Krawks',
             ]
         ]);
 
-
-    }
-
-    public function getCharacter($characterId)
-    {
-        $response = $this->client->request('GET', $this->baseEsiUrl . '/characters/' . $characterId);
+        $response = $client->request('GET', $this->baseEsiUrl . '/characters/' . $characterId);
         $jsonContent = $response->getContent();
-        $content = json_decode($jsonContent);
+        $character = json_decode($jsonContent);
 
-        return $content;
+        return $character;
     }
 
-    public function getCorporation($corporationId)
+    public function getCharacterMail($characterId)
+    {
+        //On récupère le token dans la session
+        $tokens = $this->get('session')->get('token');
+        // dd($tokens);
+        $accessToken = $tokens->getToken('accessToken');
+
+        // On créé le client pour la requête
+        $client = HttpClient::create([
+            'headers' => [
+                'Authorization' => 'Bearer ' . $accessToken,
+                'User-Agent' => 'Krawks',
+            ]
+        ]);
+
+        $response = $client->request('GET', $this->baseEsiUrl . '/characters/' . $characterId . '/mail');
+        $jsonContent = $response->getContent();
+        $mails = json_decode($jsonContent);
+        
+        return $mails;
+    }
+
+    public function getCharacterPortrait($characterId)
     {
 
+        //On récupère le token dans la session
+        $tokens = $this->get('session')->get('token');
+        // dd($tokens);
+        $accessToken = $tokens->getToken('accessToken');
+
+        // On créé le client pour la requête
+        $client = HttpClient::create([
+            'headers' => [
+                'Authorization' => 'Bearer ' . $accessToken,
+                'User-Agent' => 'Krawks',
+            ]
+        ]);
+            
+        $response = $client->request('GET', $this->baseEsiUrl . '/characters/' . $characterId . '/portrait');
+        $jsonContent = $response->getContent();
+        $portrait = json_decode($jsonContent);
+        
+        return $portrait;
+
     }
-
-
-
 
 }
