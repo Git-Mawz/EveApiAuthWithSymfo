@@ -10,6 +10,7 @@ class EsiClient extends AbstractController
 
     private $httpClient;
     private $accessToken;
+    private $baseEsiUrl = 'https://esi.evetech.net/latest';
 
     public function __construct(){
 
@@ -25,14 +26,18 @@ class EsiClient extends AbstractController
 
     }
 
-    public function getCharacterName($characterId)
+    public function getCharacter($characterId)
     {
-       
+        $response = $this->client->request('GET', $this->baseEsiUrl . '/characters/' . $characterId);
+        $jsonContent = $response->getContent();
+        $content = json_decode($jsonContent);
+
+        return $content;
     }
 
-    public function getCorporationName($corporationId)
+    public function getCorporation($corporationId)
     {
-        
+
     }
 
 
