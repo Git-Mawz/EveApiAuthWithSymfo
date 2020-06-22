@@ -112,6 +112,10 @@ class OAuthController extends AbstractController
             $session->set('token', $_SESSION['token']);
             // mise en session de l'objet user fourni par le provider
             $session->set('user', $user);
+            // mise en session de l'utilisateur stoqué en BDD correspondant à l'utilisateur authentifié
+            $loggedCharacterOwnerHash = $user->getCharacterOwnerHash();
+            $storedCapsuler = $capsulerRepository->findOneBy(['characterOwnerHash' => $loggedCharacterOwnerHash]);
+            $session->set('capsuler', $storedCapsuler);
             
 
         // return $this->render('character/home.html.twig', [
