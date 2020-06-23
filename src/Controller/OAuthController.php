@@ -127,10 +127,10 @@ class OAuthController extends AbstractController
     }
 
     /**
-    * @Route("/logoff", name="logoff")
+    * @Route("/logout", name="logout")
     */
 
-    public function logoff()
+    public function logout()
     {
         $client = HttpClient::create();
         // On fait une requete vers la route de logoff d'eve online
