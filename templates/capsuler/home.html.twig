@@ -9,5 +9,7 @@
    <img src="{{ portraits.px256x256 }}"> 
    {{ dump(user) }}
    {{ dump(app.session) }}
+   {{ dump(app.session.get('capsuler').questions) }}
+   {{ dump(app.session.get('capsuler').questions) }}
 
 {% endblock %}
