@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AuthChecker extends AbstractController
 {
-
     public function isAuthenticated()
     {
         $session = $this->get('session');

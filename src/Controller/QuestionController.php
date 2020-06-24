@@ -44,14 +44,10 @@ class QuestionController extends AbstractController
             $newQuestion->setCreatedAt(new \DateTime());
             $em->persist($newQuestion);
             $em->flush();
-
         }
-
 
         return $this->render('question/add.html.twig', [
             'form' => $form->createView()
         ]);
-
     }
-
 }

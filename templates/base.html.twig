@@ -19,13 +19,13 @@
             <div class="collapse navbar-collapse d-flex" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Mon Personnage<span class="sr-only"></span></a>
+                    <a class="nav-link" href="{{ path('character_home') }}">Mon Personnage<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Questions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">A Propos</a>
+                    <a class="nav-link" href="{{path('about')}}">A Propos</a>
                 </li>
                 {% if app.session.get('user') is not null %}
                     <a href="{{path('logout')}}" type="button" class="btn btn-danger logout">Déconnexion</a>
