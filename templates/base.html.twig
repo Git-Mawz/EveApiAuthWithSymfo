@@ -18,13 +18,13 @@
 
             <div class="collapse navbar-collapse d-flex" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item{% if app.request.attributes.get('_route') == 'character_home' %} active {% endif %}">
                     <a class="nav-link" href="{{ path('character_home') }}">Mon Personnage<span class="sr-only"></span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Questions</a>
+                <li class="nav-item{% if app.request.attributes.get('_route') == 'question_list' %} active {% endif %}">
+                    <a class="nav-link" href="{{ path('question_list') }}">Questions</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item{% if app.request.attributes.get('_route') == 'about' %} active {% endif %}">
                     <a class="nav-link" href="{{path('about')}}">A Propos</a>
                 </li>
                 {% if app.session.get('user') is not null %}

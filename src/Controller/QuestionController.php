@@ -13,10 +13,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class QuestionController extends AbstractController
 {
     /**
-     * @Route("/question/list", name="question_list")
+     * @Route("/question/list/{tag}", name="question_list")
      */
-    public function list (QuestionRepository $questionRepository)
+    public function list (QuestionRepository $questionRepository, $tag='')
     {
+        
+        
+
         $questions = $questionRepository->findAll();
         return $this->render('question/list.html.twig', [
             'questions' => $questions
@@ -44,6 +47,8 @@ class QuestionController extends AbstractController
             $newQuestion->setCreatedAt(new \DateTime());
             $em->persist($newQuestion);
             $em->flush();
+
+            return $this->redirectToRoute('question_list');
         }
 
         return $this->render('question/add.html.twig', [
