@@ -13,13 +13,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class QuestionController extends AbstractController
 {
     /**
-     * @Route("/question/list/{tag}", name="question_list")
+     * @Route("/question/list/{tagId}", name="question_list")
      */
-    public function list (QuestionRepository $questionRepository, $tag='')
+    public function list (QuestionRepository $questionRepository, $tagId=0)
     {
-        
-        
-
+        // if ($tagId != null) {
+        //     $questions = $questionRepository->findByTagId($tagId);
+        // }
         $questions = $questionRepository->findAll();
         return $this->render('question/list.html.twig', [
             'questions' => $questions
