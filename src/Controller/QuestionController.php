@@ -6,6 +6,7 @@ use App\Entity\Question;
 use App\Form\QuestionType;
 use App\Repository\CapsulerRepository;
 use App\Repository\QuestionRepository;
+use App\Services\AuthChecker;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,13 +14,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class QuestionController extends AbstractController
 {
     /**
-     * @Route("/question/list/{tagId}", name="question_list")
+     * @Route("/question/list", name="question_list")
      */
     public function list (QuestionRepository $questionRepository, $tagId=0)
     {
-        // if ($tagId != null) {
-        //     $questions = $questionRepository->findByTagId($tagId);
-        // }
         $questions = $questionRepository->findAll();
         return $this->render('question/list.html.twig', [
             'questions' => $questions
@@ -55,4 +53,21 @@ class QuestionController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/question/{id}", name="question_read", requirements={"id"="\d+"})
+     */
+    public function read(Question $question, AuthChecker $authChecker)
+    {
+        if ($authChecker->isAuthenticated()) {
+
+            return $this->render('question/read.html.twig', [
+                'question' => $question
+            ]);
+        
+        } else {
+            return $this->redirectToRoute('main_home');
+        }
+    }
+
 }
