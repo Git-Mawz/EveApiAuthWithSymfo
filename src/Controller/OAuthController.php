@@ -92,6 +92,7 @@ class OAuthController extends AbstractController
                     $capsuler->setEveCharacterId($user->getCharacterId());
                     $capsuler->setCharacterOwnerHash($user->getCharacterOwnerHash());
                     $capsuler->setCreatedAt(new \DateTime());
+                    $capsuler->setPortrait('https://images.evetech.net/Character/' . $user->getCharacterId() . '_128.jpg');
 
                     $em->persist($capsuler);
                     $em->flush();
