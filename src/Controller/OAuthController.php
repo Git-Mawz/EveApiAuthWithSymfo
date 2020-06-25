@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Capsuler;
 use App\Repository\CapsulerRepository;
+use App\Services\PortraitUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Routing\Annotation\Route;
