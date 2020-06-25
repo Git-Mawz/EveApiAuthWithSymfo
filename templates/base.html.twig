@@ -11,16 +11,21 @@
     <body class="container">
         <header>
             <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" href="#">Eve Quantum</a>
+            <a class="navbar-brand" href="{{ path('main_home') }}">Eve Quantum</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse d-flex" id="navbarColor01">
                 <ul class="navbar-nav mr-auto">
-                <li class="nav-item{% if app.request.attributes.get('_route') == 'character_home' %} active {% endif %}">
-                    <a class="nav-link" href="{{ path('character_home') }}">Mon Personnage<span class="sr-only"></span></a>
+                {% if app.session.get('user') is not null %}
+                <li class="nav-item{% if app.request.attributes.get('_route') == 'question_add' %} active {% endif %}">
+                    <a class="nav-link" href="{{path('question_add')}}">Poser une Question</a>
                 </li>
+                <li class="nav-item{% if app.request.attributes.get('_route') == 'character_home' %} active {% endif %}">
+                    <a class="nav-link" href="{{ path('character_home') }}">Mon Personnage</span></a>
+                </li>
+                {% endif %}
                 <li class="nav-item{% if app.request.attributes.get('_route') == 'question_list' %} active {% endif %}">
                     <a class="nav-link" href="{{ path('question_list') }}">Questions</a>
                 </li>
