@@ -23,7 +23,7 @@
                     <a class="nav-link" href="{{path('question_add')}}">Poser une Question</a>
                 </li>
                 <li class="nav-item{% if app.request.attributes.get('_route') == 'character_home' %} active {% endif %}">
-                    <a class="nav-link" href="{{ path('character_home') }}">Mon Personnage</span></a>
+                    <a class="nav-link" href="{{ path('character_home') }}">Mon Profil</span></a>
                 </li>
                 {% endif %}
                 <li class="nav-item{% if app.request.attributes.get('_route') == 'question_list' %} active {% endif %}">
@@ -36,10 +36,6 @@
                     <a href="{{path('logout')}}" type="button" class="btn btn-danger logout">Déconnexion</a>
                 {% endif %}
                 </ul>
-                {# <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                </form> #}
             </div>
             </nav>
         </header>

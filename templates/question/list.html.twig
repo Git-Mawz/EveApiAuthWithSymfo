@@ -19,7 +19,7 @@
     {% for question in questions %}
     <tr class="table">
       <th scope="row">{{ question.capsuler.name }}</th>
-      <td>{{ question.title }}</td>
+      <td><a href="{{ path('question_read', {id: question.id}) }}">{{ question.title }}</a></td>
       <td>{{ question.content|slice(0,70) }} ...</td>
       <td>{{question.createdAt|date("m:i \\l\\e d/m/Y") }}</td>
     </tr>
