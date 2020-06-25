@@ -49,6 +49,11 @@ class Capsuler
      */
     private $answers;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $portrait;
+
 
     public function __construct()
     {
@@ -167,6 +172,18 @@ class Capsuler
                 $answer->setCapsuler(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPortrait(): ?string
+    {
+        return $this->portrait;
+    }
+
+    public function setPortrait(?string $portrait): self
+    {
+        $this->portrait = $portrait;
 
         return $this;
     }
