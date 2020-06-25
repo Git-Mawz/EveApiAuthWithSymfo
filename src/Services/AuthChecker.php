@@ -12,6 +12,7 @@ class AuthChecker extends AbstractController
         if (($session->get('capsuler'))) {
             return true;
         } else {
+            $session->getFlashBag()->add('notice', 'Vous devez être connecté pour accéder à cette partie de Eve Quantum');
             return false;
         }
     }
