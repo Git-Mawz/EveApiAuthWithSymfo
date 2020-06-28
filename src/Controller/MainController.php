@@ -12,9 +12,7 @@ class MainController extends AbstractController
      * @Route("/", name="main_home")
      */
     public function home(AuthChecker $authChecker)
-    {   if ($authChecker->isAuthenticated()) {
-            $this->redirectToRoute('capsuler_home');
-        }
+    {
         return $this->render('main/home.html.twig');
     }
 

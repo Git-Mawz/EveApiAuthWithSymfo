@@ -125,7 +125,7 @@ class OAuthController extends AbstractController
         //     'user' => $user
         // ]);
 
-        return $this->redirectToRoute('character_home');
+        return $this->redirectToRoute('capsuler_home');
     }
 
     /**
