@@ -22,7 +22,7 @@
                 <li class="nav-item{% if app.request.attributes.get('_route') == 'question_add' %} active {% endif %}">
                     <a class="nav-link" href="{{path('question_add')}}">Poser une Question</a>
                 </li>
-                <li class="nav-item{% if app.request.attributes.get('_route') == 'character_home' %} active {% endif %}">
+                <li class="nav-item{% if app.request.attributes.get('_route') == 'capsuler_home' %} active {% endif %}">
                     <a class="nav-link" href="{{ path('capsuler_home') }}">Mon Profil</span></a>
                 </li>
                 {% endif %}
@@ -40,7 +40,7 @@
             </nav>
         </header>
 
-        <main>
+        <main class ="jumbotron">
         {% block body %}{% endblock %}
         </main>
 
