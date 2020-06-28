@@ -25,6 +25,7 @@ class QuestionType extends AbstractType
                 'label' => 'Question'
             ])
             ->add('tags', EntityType::class, [
+                'required' => true,
                 'class' => Tag::class,
                 'label' => 'Tag',
                 'query_builder' => function (TagRepository $tagRepository) {
@@ -32,10 +33,12 @@ class QuestionType extends AbstractType
                         ->orderBy('t.name', 'ASC');
                 },
                 'choice_label' => 'name',
-                'multiple' => true,
-                'expanded' => true,
+                'expanded' => false,
+                'multiple' => false,
             ])
-            ->add('Envoyer', SubmitType::class)
+            ->add('submit', SubmitType::class, [
+                'label' => 'Envoyer'
+            ])
         ;
     }
 

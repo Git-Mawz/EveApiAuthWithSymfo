@@ -50,6 +50,12 @@ class Question
      */
     private $capsuler;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="questions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
 
     public function __construct()
     {
@@ -163,6 +169,18 @@ class Question
     public function setCapsuler(?Capsuler $capsuler): self
     {
         $this->capsuler = $capsuler;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }
