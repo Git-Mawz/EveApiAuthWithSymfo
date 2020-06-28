@@ -4,7 +4,15 @@
 
 {% block body %}
 
-{{ form(form) }}
+<h2>Votre Question</h2>
+
+{# {{ form(form) }} #}
+
+    <div>
+    {{ form_start(form) }}
+    {{ form_end(form) }}
+    </div>
+
 
 
 {% endblock %}

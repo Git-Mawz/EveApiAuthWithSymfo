@@ -14,7 +14,7 @@
         {% if app.session.get('user') is null %}
             <a class="btn btn-primary btn-lg" href="{{path('oauth')}}" role="button">Se connecter</a>
         {% else %}
-            <a class="btn btn-primary btn-lg" href="{{path('question_list')}}" role="button">Poser une question</a>
+            <a class="btn btn-primary btn-lg" href="{{path('question_add')}}" role="button">Poser une question</a>
         {% endif %}
         
         </p>
