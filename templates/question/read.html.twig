@@ -6,6 +6,18 @@
 
     {{ dump(question.capsuler.eveCharacterId) }}
     <img src="{{ question.capsuler.portrait }}" alt="Portrait de l'auteur de la question">
+    {{ question.title }} <br>
+    {{ question.content }} <br>
+    {{ form_start(form) }}
+    {{ form_end(form) }}
+    <br>
+    <br>
+    {% for answer in question.answers %}
+
+        {{ dump(answer.createdAt) }}
+        {{dump(answer.content)}}
+
+    {% endfor %}
     
 
 {% endblock %}

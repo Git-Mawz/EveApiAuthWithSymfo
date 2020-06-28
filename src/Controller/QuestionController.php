@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Answer;
 use App\Entity\Question;
+use App\Form\AnswerType;
 use App\Form\QuestionType;
 use App\Repository\CapsulerRepository;
 use App\Repository\QuestionRepository;
@@ -57,11 +59,33 @@ class QuestionController extends AbstractController
     /**
      * @Route("/question/{id}", name="question_read", requirements={"id"="\d+"})
      */
-    public function read(Question $question, AuthChecker $authChecker)
+    public function read(Question $question, AuthChecker $authChecker, Request $request, CapsulerRepository $capsulerRepository)
     {
         if ($authChecker->isAuthenticated()) {
+            
+            $newAnswer = new Answer();
+            $form = $this->createForm(AnswerType::class, $newAnswer);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $oauthUser = $this->get('session')->get('user');
+            $characterOwnerHash = $oauthUser->getCharacterOwnerHash();
+            $capsuler = $capsulerRepository->findOneBy(['characterOwnerHash' => $characterOwnerHash]);
+            $newAnswer->setCapsuler($capsuler);
+            $newAnswer->setCreatedAt(new \DateTime());
+            $newAnswer->setQuestion($question);
+            $em->persist($newAnswer);
+            $em->flush();
+
+            return $this->redirectToRoute('question_read', ['id' => $question->getId()]);
+        }
+
+
             return $this->render('question/read.html.twig', [
-                'question' => $question
+                'question' => $question,
+                'form' => $form->createView()
             ]);
         
         } else {
