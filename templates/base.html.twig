@@ -23,7 +23,7 @@
                     <a class="nav-link" href="{{path('question_add')}}">Poser une Question</a>
                 </li>
                 <li class="nav-item{% if app.request.attributes.get('_route') == 'character_home' %} active {% endif %}">
-                    <a class="nav-link" href="{{ path('character_home') }}">Mon Profil</span></a>
+                    <a class="nav-link" href="{{ path('capsuler_home') }}">Mon Profil</span></a>
                 </li>
                 {% endif %}
                 <li class="nav-item{% if app.request.attributes.get('_route') == 'question_list' %} active {% endif %}">

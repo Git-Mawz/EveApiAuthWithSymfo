@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CapsulerController extends AbstractController
 {
     /**
-     * @Route("/character/home", name="character_home")
+     * @Route("/capsuler/home", name="capsuler_home")
      */
     public function details(AuthChecker $authChecker)
     {   
