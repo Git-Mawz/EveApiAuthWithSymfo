@@ -1,9 +1,0 @@
-#question_tags {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-.form-check {
-    margin: 0.3rem;
-}

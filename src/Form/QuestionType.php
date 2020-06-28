@@ -3,8 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Question;
-use App\Entity\Tag;
-use App\Repository\TagRepository;
+use App\Entity\Category;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -24,14 +23,11 @@ class QuestionType extends AbstractType
             ->add('content', TextareaType::class, [
                 'label' => 'Question'
             ])
-            ->add('tags', EntityType::class, [
+            ->add('category', EntityType::class, [
+                'placeholder' => 'Choissez une catégorie',
                 'required' => true,
-                'class' => Tag::class,
-                'label' => 'Tag',
-                'query_builder' => function (TagRepository $tagRepository) {
-                    return $tagRepository->createQueryBuilder('t')
-                        ->orderBy('t.name', 'ASC');
-                },
+                'class' => Category::class,
+                'label' => 'Catégorie',
                 'choice_label' => 'name',
                 'expanded' => false,
                 'multiple' => false,
