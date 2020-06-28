@@ -60,7 +60,6 @@ class QuestionController extends AbstractController
     public function read(Question $question, AuthChecker $authChecker)
     {
         if ($authChecker->isAuthenticated()) {
-
             return $this->render('question/read.html.twig', [
                 'question' => $question
             ]);
