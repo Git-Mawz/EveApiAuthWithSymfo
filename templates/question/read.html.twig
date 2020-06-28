@@ -4,18 +4,26 @@
 
 {% block body %}
 
-    {{ dump(question.capsuler.eveCharacterId) }}
-    <img src="{{ question.capsuler.portrait }}" alt="Portrait de l'auteur de la question">
-    {{ question.title }} <br>
-    {{ question.content }} <br>
-    {{ form_start(form) }}
-    {{ form_end(form) }}
-    <br>
-    <br>
-    {% for answer in question.answers %}
+    {# {{ dump(question.capsuler.eveCharacterId) }} #}
+    <h2 class="text-center">{{ question.title }}</h2>
 
-        {{ dump(answer.createdAt) }}
-        {{dump(answer.content)}}
+    <div class="d-flex mb-3">
+        <img class="rounded-circle" src="{{ question.capsuler.portrait }}" alt="Portrait de l'auteur de la question">
+        <div class="d-flex">
+            <p class="align-self-center m-3">{{ question.content }}</p>
+        </div>
+    </div>
+        
+        {{ form_start(form) }}
+        {{ form_end(form) }}
+
+    {% for answer in question.answers %}
+    
+    <div class="border-bottom border-dark mt-3">
+        <img style="width: 64px" class="rounded-circle" src="{{ answer.capsuler.portrait }}" alt="Portrait de l'auteur d'une réponse"> 
+        <p>{{answer.createdAt|date("m:i \\l\\e d/m/Y") }}</p>
+        <p>{{answer.content}}</p>
+    </div>
 
     {% endfor %}
     
