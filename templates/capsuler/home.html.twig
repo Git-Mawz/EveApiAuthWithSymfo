@@ -4,10 +4,10 @@
 
 {% block body %}
 
-   <h1>Bienvenue {{user.characterName}} </h1>
+   <h1>Bienvenue {{capsuler.name}} </h1>
 
    <img src="{{ portraits.px256x256 }}"> 
-   {{ dump(user) }}
+   {{ dump(capsuler) }}
    {{ dump(app.session) }}
    {{ dump(app.session.get('capsuler').questions) }}
    {{ dump(app.session.get('capsuler').questions) }}

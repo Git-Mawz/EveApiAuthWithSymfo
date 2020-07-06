@@ -15,8 +15,8 @@ class CapsulerController extends AbstractController
     public function details(AuthChecker $authChecker)
     {   
         if ($authChecker->isAuthenticated()) {
-            $user = $this->get('session')->get('user');
-            $characterID = $user->getCharacterID();
+            $capsuler = $this->get('session')->get('capsuler');
+            $characterID = $capsuler->getEveCharacterID();
             
             $esiBaseUrl = 'https://esi.evetech.net/latest/';
             $characterPortraits = $esiBaseUrl . 'characters/' .$characterID. '/portrait/';
@@ -25,7 +25,7 @@ class CapsulerController extends AbstractController
             
             return $this->render('capsuler/home.html.twig', [
                 'portraits' => $characterPortraits,
-                'user' => $user
+                'capsuler' => $capsuler
                 ]);
         } else {
             return $this->redirectToRoute('main_home');

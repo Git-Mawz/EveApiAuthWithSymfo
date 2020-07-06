@@ -112,9 +112,11 @@ class OAuthController extends AbstractController
 
             // mise en session du token fourni par oauth
             $session->set('token', $_SESSION['token']);
+
             // mise en session de l'objet user fourni par le provider
             $session->set('user', $user);
-            // mise en session de l'utilisateur stoqué en BDD correspondant à l'utilisateur authentifié
+
+            // mise en session de l'utilisateur stocké en BDD correspondant à l'utilisateur authentifié
             $loggedCharacterOwnerHash = $user->getCharacterOwnerHash();
             $storedCapsuler = $capsulerRepository->findOneBy(['characterOwnerHash' => $loggedCharacterOwnerHash]);
             $session->set('capsuler', $storedCapsuler);
@@ -140,7 +142,7 @@ class OAuthController extends AbstractController
         // On vide la session
         $session = $this->get('session');
         $session->clear();
-        // On retourne à la page 
+        // On retourne à la page d'accueil
         return $this->redirectToRoute('main_home');
     }
 
