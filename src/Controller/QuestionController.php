@@ -18,7 +18,7 @@ class QuestionController extends AbstractController
     /**
      * @Route("/question/list", name="question_list")
      */
-    public function list (QuestionRepository $questionRepository, $tagId=0)
+    public function list (QuestionRepository $questionRepository)
     {
         $questions = $questionRepository->findAll();
         return $this->render('question/list.html.twig', [
@@ -80,7 +80,7 @@ class QuestionController extends AbstractController
             $em->flush();
 
             return $this->redirectToRoute('question_read', ['id' => $question->getId()]);
-        }
+            }
 
 
             return $this->render('question/read.html.twig', [

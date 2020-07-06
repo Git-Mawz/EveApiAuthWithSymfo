@@ -22,11 +22,10 @@ class CapsulerController extends AbstractController
             $characterPortraits = $esiBaseUrl . 'characters/' .$characterID. '/portrait/';
             
             $characterPortraits = json_decode(file_get_contents($characterPortraits));
-            
+
             return $this->render('capsuler/home.html.twig', [
                 'portraits' => $characterPortraits,
                 'capsuler' => $capsuler,
-                'questions' => $capsuler->getQuestions()
                 ]);
         } else {
             return $this->redirectToRoute('main_home');
