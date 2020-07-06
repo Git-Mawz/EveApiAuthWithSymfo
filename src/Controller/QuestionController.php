@@ -63,6 +63,8 @@ class QuestionController extends AbstractController
     {
         if ($authChecker->isAuthenticated()) {
             
+            // dump($question->getCapsuler());
+
             $newAnswer = new Answer();
             $form = $this->createForm(AnswerType::class, $newAnswer);
             $form->handleRequest($request);

@@ -119,6 +119,11 @@ class OAuthController extends AbstractController
             // mise en session de l'utilisateur stocké en BDD correspondant à l'utilisateur authentifié
             $loggedCharacterOwnerHash = $user->getCharacterOwnerHash();
             $storedCapsuler = $capsulerRepository->findOneBy(['characterOwnerHash' => $loggedCharacterOwnerHash]);
+
+            // // ! Debug
+            // dd($storedCapsuler->getAnswers()[0]);
+            // // ! Debug
+
             $session->set('capsuler', $storedCapsuler);
             
 
