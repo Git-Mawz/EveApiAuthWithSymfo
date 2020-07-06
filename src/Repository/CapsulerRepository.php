@@ -20,21 +20,6 @@ class CapsulerRepository extends ServiceEntityRepository
     }
 
 
-    public function findCapsulerQuestionById($id)
-    {
-        $qb = $this->createQueryBuilder('c')
-                    ->addSelect('q')
-                    ->join('c.questions', 'q')
-                    ->where('c.id :id')
-                    ->setParameter('id', $id)
-                    ->getQuery();
-        
-        // dd($qb);
-
-
-        return;
-    }
-
     // /**
     //  * @return Capsuler[] Returns an array of Capsuler objects
     //  */

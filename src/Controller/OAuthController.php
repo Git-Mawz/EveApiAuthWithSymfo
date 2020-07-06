@@ -115,22 +115,14 @@ class OAuthController extends AbstractController
 
             // mise en session de l'objet user fourni par le provider
             $session->set('user', $user);
+            $session->set('characterOwnerHash', $user->getCharacterOwnerHash());
 
-            // mise en session de l'utilisateur stocké en BDD correspondant à l'utilisateur authentifié
-            $loggedCharacterOwnerHash = $user->getCharacterOwnerHash();
-            $storedCapsuler = $capsulerRepository->findOneBy(['characterOwnerHash' => $loggedCharacterOwnerHash]);
-
-            // // ! Debug
-            // dd($storedCapsuler->getAnswers()[0]);
-            // // ! Debug
-
-            $session->set('capsuler', $storedCapsuler);
+            // // mise en session de l'utilisateur stocké en BDD correspondant à l'utilisateur authentifié
+            // $loggedCharacterOwnerHash = $user->getCharacterOwnerHash();
+            // $storedCapsuler = $capsulerRepository->findOneBy(['characterOwnerHash' => $loggedCharacterOwnerHash]);
+            // $session->set('capsuler', $storedCapsuler);
             
 
-        // return $this->render('character/home.html.twig', [
-        //     'controller_name' => 'OAuthController',
-        //     'user' => $user
-        // ]);
 
         return $this->redirectToRoute('capsuler_home');
     }

@@ -9,7 +9,7 @@ class AuthChecker extends AbstractController
     public function isAuthenticated()
     {
         $session = $this->get('session');
-        if (($session->get('capsuler'))) {
+        if (($session->get('characterOwnerHash'))) {
             return true;
         } else {
             $session->getFlashBag()->add('notice', 'Vous devez être connecté pour accéder à cette partie de Eve Quantum');

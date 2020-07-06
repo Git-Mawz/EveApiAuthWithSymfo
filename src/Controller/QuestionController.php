@@ -40,8 +40,8 @@ class QuestionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $oauthUser = $this->get('session')->get('user');
-            $characterOwnerHash = $oauthUser->getCharacterOwnerHash();
+            
+            $characterOwnerHash = $this->get('session')->get('characterOwnerHash');
             $capsuler = $capsulerRepository->findOneBy(['characterOwnerHash' => $characterOwnerHash]);
             $newQuestion->setCapsuler($capsuler);
             $newQuestion->setCreatedAt(new \DateTime());
@@ -72,8 +72,8 @@ class QuestionController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $oauthUser = $this->get('session')->get('user');
-            $characterOwnerHash = $oauthUser->getCharacterOwnerHash();
+
+            $characterOwnerHash = $this->get('session')->get('characterOwnerHash');
             $capsuler = $capsulerRepository->findOneBy(['characterOwnerHash' => $characterOwnerHash]);
             $newAnswer->setCapsuler($capsuler);
             $newAnswer->setCreatedAt(new \DateTime());

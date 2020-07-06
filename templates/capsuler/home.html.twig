@@ -8,18 +8,15 @@
 
    <img src="{{ portraits.px256x256 }}"> 
 
-   {# {{ dump(capsuler) }} #}
+   {% for question in capsuler.questions %}
+      {{ dump(question) }}
+   {% endfor %}
 
-   {# {% for question in capsuler.questions %}
-
-      {{ dump(question.title) }}
-
-   {% endfor %} #}
+   {% for answer in capsuler.answers %}
+      {{ dump(answer) }}
+   {% endfor %}
 
 
-   {# Objet de type Capsuler #}
-   {# {{ dump(app.session.get('capsuler')) }} #}
-   {# Objet de type EveOnlineResourceOwner fourni par le provider et l'authentification OAuth #}
-   {# {{ dump(app.session.get('user'))}} #}
+
 
 {% endblock %}

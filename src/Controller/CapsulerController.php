@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Repository\CapsulerRepository;
-use App\Repository\QuestionRepository;
 use App\Services\AuthChecker;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,25 +13,18 @@ class CapsulerController extends AbstractController
     /**
      * @Route("/capsuler/home", name="capsuler_home")
      */
-    public function details(AuthChecker $authChecker, CapsulerRepository $cr, QuestionRepository $qr)
+    public function details(AuthChecker $authChecker, CapsulerRepository $capsulerRepository)
     {   
         if ($authChecker->isAuthenticated()) {
-            $capsuler = $this->get('session')->get('capsuler');
+
+            $characterOwnerHash = $this->get('session')->get('characterOwnerHash');
+            $capsuler = $capsulerRepository->findOneBy(['characterOwnerHash' => $characterOwnerHash]);
             $characterID = $capsuler->getEveCharacterID();
             
             $esiBaseUrl = 'https://esi.evetech.net/latest/';
             $characterPortraits = $esiBaseUrl . 'characters/' .$characterID. '/portrait/';
             
             $characterPortraits = json_decode(file_get_contents($characterPortraits));
-
-            // TEST
-
-            dump($capsuler->getQuestions());
-
-            // dd($qr->findAll()[0]->getCapsuler()->getQuestions()[1], $capsuler->getQuestions());
-            // dd($cr->findCapsulerQuestionById($capsuler->getId()));
-
-            // TEST
 
             return $this->render('capsuler/home.html.twig', [
                 'portraits' => $characterPortraits,
