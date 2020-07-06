@@ -7,9 +7,22 @@
    <h1>Bienvenue {{capsuler.name}} </h1>
 
    <img src="{{ portraits.px256x256 }}"> 
-   {{ dump(capsuler) }}
-   {{ dump(app.session) }}
-   {{ dump(app.session.get('capsuler').questions) }}
-   {{ dump(app.session.get('capsuler').questions) }}
+
+   {# {{ capsuler.questions }} #}
+
+   <ul>
+   {% for question in capsuler.questions %}
+
+      <li>{{ question.title }}</li>
+
+   {% endfor %}
+   <ul>
+
+
+
+   {# Objet de type Capsuler #}
+   {# {{ dump(app.session.get('capsuler')) }} #}
+   {# Objet de type EveOnlineResourceOwner fourni par le provider et l'authentification OAuth #}
+   {# {{ dump(app.session.get('user'))}} #}
 
 {% endblock %}

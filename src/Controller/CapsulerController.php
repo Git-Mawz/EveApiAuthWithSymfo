@@ -25,7 +25,8 @@ class CapsulerController extends AbstractController
             
             return $this->render('capsuler/home.html.twig', [
                 'portraits' => $characterPortraits,
-                'capsuler' => $capsuler
+                'capsuler' => $capsuler,
+                'questions' => $capsuler->getQuestions()
                 ]);
         } else {
             return $this->redirectToRoute('main_home');
