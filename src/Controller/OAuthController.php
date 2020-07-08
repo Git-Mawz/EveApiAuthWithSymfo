@@ -115,9 +115,12 @@ class OAuthController extends AbstractController
 
             // mise en session de l'objet user fourni par le provider
             $session->set('user', $user);
+
+            // On stock en sessios le 'characterOwnerHash' qui sera notre identifiant unique pour chaque capsuler.
             $session->set('characterOwnerHash', $user->getCharacterOwnerHash());
 
             // // mise en session de l'utilisateur stocké en BDD correspondant à l'utilisateur authentifié
+            // ! Cette methode ne fonctionne pas, l'utilisateur est "figé" et ne permet pas l'accès à ses relation en BDD via doctrine
             // $loggedCharacterOwnerHash = $user->getCharacterOwnerHash();
             // $storedCapsuler = $capsulerRepository->findOneBy(['characterOwnerHash' => $loggedCharacterOwnerHash]);
             // $session->set('capsuler', $storedCapsuler);
