@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use Evelabs\OAuth2\Client\Provider\EveOnline;
-use Symfony\Component\HttpFoundation\Session\Session;
+// use Evelabs\OAuth2\Client\Provider\EveOnline;
+// use Symfony\Component\HttpFoundation\Session\Session;
 
 
 class EsiEndpoints {
